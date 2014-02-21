@@ -1,19 +1,27 @@
 ;;; move-lines.el --- move current line or lines surrounding region up or down
 
-;; Copyright (C) 2013 Emanuele Tomasi <targzeta@gmail.com>
-;;
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
+;; Copyright (C) 2014 Emanuele Tomasi <targzeta@gmail.com>
+
+;; This program is free software: you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation, either version 3 of the
+;; License, or (at your option) any later version.
 ;;
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
 ;;
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+;; This file is NOT part of GNU Emacs.
+
+;; Author: Emanuele Tomasi <targzeta@gmail.com>
+;; Version: 1.0
+;; URL: https://gist.github.com/4170263
+;; Maintainer: Emanuele Tomasi <targzeta@gmail.com>
+;; Keywords: convenience
 
 ;;; Commentary;
 
@@ -26,7 +34,8 @@
 ;;     (require 'move-lines)
 ;;     (move-lines-binding)
 ;;
-;; Now, you can move the line(s) up by M-p or M-<up> or down by M-n or M-<down>.
+;; Now, you can move the line(s) up by M-p or M-<up> or down by M-n or
+;; M-<down>.
 
 ;;; Code:
 
