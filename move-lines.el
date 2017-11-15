@@ -1,7 +1,7 @@
 ;;; move-lines.el --- move current line or lines surrounding region up or down
-
+;;
 ;; Copyright (C) 2014 Emanuele Tomasi <targzeta@gmail.com>
-
+;;
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
 ;; published by the Free Software Foundation, either version 3 of the
@@ -14,17 +14,17 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+;;
 ;; This file is NOT part of GNU Emacs.
-
+;;
 ;; Author: Emanuele Tomasi <targzeta@gmail.com>
 ;; Version: 1.0
-;; URL: https://gist.github.com/4170263
+;; URL: https://github.com/targzeta/move-lines
 ;; Maintainer: Emanuele Tomasi <targzeta@gmail.com>
 ;; Keywords: convenience
-
+;;
 ;;; Commentary;
-
+;;
 ;; There are two entry points: `move-lines-up' moves the text up and
 ;; `move-lines-down' that moves the text down.
 ;;
@@ -36,7 +36,7 @@
 ;;
 ;; Now, you can move the line(s) up by M-p or M-<up> or down by M-n or
 ;; M-<down>.
-
+;;
 ;;; Code:
 
 (defun move-lines--internal (n)
