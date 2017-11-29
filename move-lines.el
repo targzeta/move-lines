@@ -40,59 +40,67 @@
 ;;; Code:
 
 (defun move-lines--internal (n)
-  (let* ((start (point)) ;; The position of beginning of line of the first line
-         (end start)     ;; The position of eol+\n of the end line
-         col-init        ;; The current column for the first line
-         (col-end (current-column)) ;; The current column for the end line
-         exchange_pm     ;; If I had exchanged point and mark
-         delete-latest-newline) ;; If I had inserted a newline at the end
+  "Moves the current line or, if region is actives, the lines surrounding
+region, of N lines. Down if N is positive, up if is negative"
 
-    ;; STEP 1: Identifying the line(s) to cut.
-    ;; ---
-    ;; If region is actives, I ensure that point always is at the end of the
-    ;; region and mark at the beginning.
+  ;; The text area spans from the beginning of the first line (text-start) to
+  ;; the end of the last line, '\n' included (text-end). Its coordinates are
+  ;; the number of chars from the beginning of buffer.
+  ;; The region is within the text area and its coordinates are the (negative)
+  ;; numbers of chars from text-end.
+  ;;
+  ;; E.g.:
+  ;;     Lorem ipsum dolor sit amet, consectetur adipisci elit,\n
+  ;;     ^                  ^                    ^              ^
+  ;; text-start(1)    region-start(-35)    region-end(-14)  text-end(55)
+  ;;
+  ;; We assume that point is always ahead the mark, else temporarily we swap
+  ;; them.
+  ;; If we act on the latest line of the buffer and it hasn't a newline, we
+  ;; temporarily add one.
+  (let* (text-start
+         text-end
+         (region-start (point))
+         (region-end region-start)
+         swap-point-mark
+         delete-latest-newline)
+
+    ;; STEP 1: identifying the text to cut.
     (when (region-active-p)
-      (when (< (point) (mark))
-        (setq exchange_pm t)
-        (exchange-point-and-mark))
-      (setq start (mark)
-            end (point)
-            col-end (current-column)))
+      (if (> (point) (mark))
+          (setq region-start (mark))
+        (exchange-point-and-mark)
+        (setq swap-point-mark t
+              region-end (point))))
 
-    (goto-char start) (setq col-init (current-column))
-    (beginning-of-line) (setq start (point))
-
-    (goto-char end) (end-of-line)
-    ;; If point == point-max, this buffers doesn't have the trailing newline.
-    ;; In this case I have to insert a newline otherwise the following
-    ;; `forward-char' (to keep the "\n") will fail.
-    (when (= (point) (point-max))
+    ;; text-end and region-end
+    (end-of-line)
+    ;; If point !< point-max, this buffers doesn't have the trailing newline.
+    (if (< (point) (point-max))
+        (forward-char 1)
       (setq delete-latest-newline t)
-      (insert-char ?\n) (forward-char -1))
-    (forward-char 1) (setq end (point))
+      (insert-char ?\n))
+    (setq text-end (point)
+          region-end (- region-end text-end))
 
-    ;; STEP 2: Moving the lines.
-    ;; ---
-    ;; The region I'm cutting span from the beginning of line of the current
-    ;; line (or current region) to the end of line + 1 (newline) of the current
-    ;; line (or current region).
-    (let ((line-text (delete-and-extract-region start end)))
+    ;; text-start and region-start
+    (goto-char region-start)
+    (beginning-of-line)
+    (setq text-start (point)
+          region-start (- region-start text-end))
+
+    ;; STEP 2: cut and paste.
+    (let ((text (delete-and-extract-region text-start text-end)))
       (forward-line n)
       ;; If the current-column != 0, I have moved the region at the bottom of a
       ;; buffer doesn't have the trailing newline.
       (when (not (= (current-column) 0))
         (insert-char ?\n)
         (setq delete-latest-newline t))
-      (setq start (+ (point) col-init)) ;; Now, start is the start of new region
-      (insert line-text))
+      (insert text))
 
-    ;; STEP 3: Restoring
-    ;; ---
-    ;; I'm at the end of new region (or line) and start has setted at the
-    ;; beginning of new region (if a region is active).
-    ;; Restoring the end column.
-    (forward-line -1)
-    (forward-char col-end)
+    ;; STEP 3: Restoring.
+    (forward-char region-end)
 
     (when delete-latest-newline
       (save-excursion
@@ -101,8 +109,8 @@
 
     (when (region-active-p)
       (setq deactivate-mark nil)
-      (set-mark start)
-      (if exchange_pm
+      (set-mark (+ (point) (- region-start region-end)))
+      (if swap-point-mark
           (exchange-point-and-mark)))))
 
 ;;;###autoload
