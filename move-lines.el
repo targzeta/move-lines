@@ -18,7 +18,7 @@
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;; Author: Emanuele Tomasi <targzeta@gmail.com>
-;; Version: 1.0
+;; Version: 2.0
 ;; URL: https://github.com/targzeta/move-lines
 ;; Maintainer: Emanuele Tomasi <targzeta@gmail.com>
 ;; Keywords: convenience
