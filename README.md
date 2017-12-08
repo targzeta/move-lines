@@ -3,12 +3,13 @@ move-lines
 
 Emacs package that moves current line or lines surrounding region up or down.
 
+![Demonstration](move-lines.gif)
 
 Configuration
 =============
 
-Copy the provided version of ``move-lines.el`` in a directory which is in the
-Emacs ``load-path``. Then, execute the following code either directly or in
+Copy the provided version of `move-lines.el` in a directory which is in the
+Emacs `load-path`. Then, execute the following code either directly or in
 your .emacs file:
 
     (require 'move-lines)
