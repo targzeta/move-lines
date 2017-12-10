@@ -1,6 +1,14 @@
 ;;; move-lines.el --- move current line or lines surrounding region up or down
 ;;
-;; Copyright (C) 2014 Emanuele Tomasi <targzeta@gmail.com>
+;; Copyright (C) 2014-2017 Emanuele Tomasi <targzeta@gmail.com>
+;;
+;; Author: Emanuele Tomasi <targzeta@gmail.com>
+;; URL: https://github.com/targzeta/move-lines
+;; Maintainer: Emanuele Tomasi <targzeta@gmail.com>
+;; Keywords: convenience
+;; Version: 2.0
+;;
+;; This file is NOT part of GNU Emacs.
 ;;
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -14,14 +22,6 @@
 ;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program. If not, see <http://www.gnu.org/licenses/>.
-;;
-;; This file is NOT part of GNU Emacs.
-;;
-;; Author: Emanuele Tomasi <targzeta@gmail.com>
-;; Version: 2.0
-;; URL: https://github.com/targzeta/move-lines
-;; Maintainer: Emanuele Tomasi <targzeta@gmail.com>
-;; Keywords: convenience
 ;;
 ;;; Commentary;
 ;;
