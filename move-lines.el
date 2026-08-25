@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; move-lines.el --- move current line or lines surrounding region up or down
 ;;
 ;; Copyright (C) 2014-2017 Emanuele Tomasi <targzeta@gmail.com>
